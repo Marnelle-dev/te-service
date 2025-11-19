@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+*.user
+*.suo
+*.cache
+
+# Docker
+portainer-*.zip
+portainer-temp*/
+deploy-direct/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+

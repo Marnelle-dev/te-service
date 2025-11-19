@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # API Service pour production
+  transport-te-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: transport-te-api-prod
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # ⚠️ REMPLACEZ la chaîne de connexion ci-dessous par votre vraie chaîne de connexion SQL Server
+      - ConnectionStrings__chaine=Server=DSI-SAGDDI-P18;Database=GUOT_TE_PROD;User Id=sa;Password=Marnelle@1234567890;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/swagger/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
