@@ -50,7 +50,7 @@ La chaîne de connexion est configurée dans `appsettings.json` :
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=TransportTeServiceDb;Trusted_Connection=true;TrustServerCertificate=true;MultipleActiveResultSets=true"
+    "chaine": "Server=DSI-SAGDDI-P18;Database=GUOT_TE_PROD;User Id=sa;Password=***;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;"
   }
 }
 ```
@@ -89,41 +89,18 @@ dotnet ef database update
 - **2 - Ouvert** : Transport approuvé
 - **3 - Rejeté** : Transport refusé
 
-## Exemples d'utilisation
+## Déploiement Docker
 
-### Créer un transport
+Ce projet inclut la configuration Docker pour le déploiement sur Portainer.
 
-```json
-POST /api/v1/transports
-{
-  "transport": {
-    "noTransport": "TE-2025-001",
-    "etat": 0,
-    "transitaireId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "consignee": "Consignataire ABC",
-    "manifesteDepart": "MAN-001"
-  },
-  "transportEval": {
-    "partenaire": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "modeTransport": 2,
-    "valeurFCFA": 5000000,
-    "masseBrute": 1500.50
-  }
-}
-```
-
-### Soumettre un transport
-
-```json
-POST /api/v1/transports/{id}/submit
-```
+Voir `README.Docker.md` pour les instructions de déploiement.
 
 ## Développement
 
 ### Prérequis
 
 - .NET 9.0 SDK
-- SQL Server (ou LocalDB)
+- SQL Server
 - Visual Studio 2022 ou VS Code
 
 ### Exécution
@@ -132,15 +109,11 @@ POST /api/v1/transports/{id}/submit
 dotnet run --project TransportTeService.Api
 ```
 
-L'API sera accessible sur `https://localhost:5001` ou `http://localhost:5000`.
-
-### Documentation Swagger
-
-Une fois l'application démarrée, accédez à `/openapi/v1.json` pour la documentation OpenAPI.
+L'API sera accessible sur `http://localhost:5068` avec Swagger à la racine.
 
 ## Notes
 
 - Ce microservice est basé sur le modèle du microservice de transport à l'importation (TI)
 - Les transports TE peuvent être de consommation partielle ou totale
 - La soumission d'un transport change automatiquement son statut de "Élaboré" à "AE"
-
+- Les IDs sont des GUIDs générés automatiquement
