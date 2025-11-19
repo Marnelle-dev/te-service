@@ -41,9 +41,9 @@ EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
-# Health check (using curl instead of wget)
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:8080/swagger/index.html || exit 1
+# Health check (vérifie la racine ou le endpoint swagger)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8080/ || curl -f http://localhost:8080/swagger/v1/swagger.json || exit 1
 
 # Switch to non-root user
 USER appuser
