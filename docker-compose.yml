@@ -11,5 +11,5 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__chaine=${CONNECTION_STRING}
+      - ConnectionStrings__chaine=Server=192.168.2.118;Database=GUOT_TE_PROD;User ID=msuser;Password=9$SViSWexRn5hWq;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;
     restart: unless-stopped
