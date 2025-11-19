@@ -60,8 +60,19 @@ app.UseCors();
 // GET /api/v1/transports
 app.MapGet("/api/v1/transports", async (ITransportService transportService) =>
 {
-    var transports = await transportService.GetAllTransportsAsync();
-    return Results.Ok(transports);
+    try
+    {
+        var transports = await transportService.GetAllTransportsAsync();
+        return Results.Ok(transports);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(
+            detail: ex.ToString(),
+            statusCode: 500,
+            title: "Erreur lors de la récupération des transports"
+        );
+    }
 })
 .WithName("GetAllTransports")
 .WithTags("Transports");
@@ -129,8 +140,19 @@ app.MapPost("/api/v1/transports/{id:guid}/submit", async (Guid id, ITransportSer
 // GET /api/v1/lignes-transport
 app.MapGet("/api/v1/lignes-transport", async (ILigneTransportService ligneTransportService) =>
 {
-    var lignes = await ligneTransportService.GetAllLignesTransportAsync();
-    return Results.Ok(lignes);
+    try
+    {
+        var lignes = await ligneTransportService.GetAllLignesTransportAsync();
+        return Results.Ok(lignes);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(
+            detail: ex.ToString(),
+            statusCode: 500,
+            title: "Erreur lors de la récupération des lignes de transport"
+        );
+    }
 })
 .WithName("GetAllLignesTransport")
 .WithTags("LignesTransport");
